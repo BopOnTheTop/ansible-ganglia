@@ -1,0 +1,16 @@
+---
+# Install ganglia-monitor in RedHat
+
+- name: Install ganglia-monitor
+  package: name=ganglia-gmond state=latest
+  notify: Start monitored-host
+
+# Setup the monitoring config
+- name: Setup gmond config
+  template:
+    src: templates/gmond.redhat.conf
+    dest: /etc/ganglia/gmond.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Start monitored-host
